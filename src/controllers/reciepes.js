@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export const createRecipe = async (req, res) => {
     const recipe = new RecipeModel(req.body);
-    
+    console.log(recipe);
     try {
         const download = async(url, filepath) => {
             const response = await axios({
@@ -23,7 +23,7 @@ export const createRecipe = async (req, res) => {
 
         const response = await recipe.save();
         download(recipe.imageUrl, '../client/src/assets/' + response._id + '_img' + '.jpg');   
-        res.json(response);
+       return res.json(response);
     } catch(err) {
         console.log(err);
     }

@@ -5,7 +5,7 @@ import { generateRecipe } from '../controllers/generateRecipe.js';
 export default (router) => {
     router.get("/recipes", allRecipe);
     router.post("/generate-recipe", verifyToken, generateRecipe);
-    router.post("/recipes", verifyToken, createRecipe);
+    router.post("/recipes", createRecipe);
     router.put("/recipes", verifyToken, handleRecipe);
     router.post("/add-new-ingredient", createIngredinet);
     router.get("/ingredients", allIngredinet);

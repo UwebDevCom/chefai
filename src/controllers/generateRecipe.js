@@ -11,9 +11,10 @@ const openai = new OpenAIApi(configuration);
 
 export const generateRecipe = async (req, res) => {
     const ingredients = req.body?.ingredients?.map(item => item.ingredient).join(', ');
+    
     const prompt = `Please write a recipe using those ingredients: ${ingredients},
     please create an object json which includes: title of the recipe, cooking time( cookingTime - in munites), description, instructions, ingredients(as array of strings)`
-    console.log(prompt)
+   
     try {
         const responseImg = await openai.createImage({
             prompt: `a dish made of: ${ingredients}`,
