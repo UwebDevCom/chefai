@@ -1,28 +1,11 @@
 import { IngredientsModel, RecipeModel } from "../models/Recipes.js"
 import { UserModel } from "../models/Users.js";
-import * as fs from 'fs';
-import axios from 'axios';
+
 
 export const createRecipe = async (req, res) => {
     const recipe = new RecipeModel(req.body);
-    console.log(recipe);
     try {
-        const download = async (url, filepath) => {
-            const response = await axios({
-                url,
-                method: 'GET',
-                responseType: 'stream',
-            })
-            return new Promise((resolve, reject) => {
-                response.data
-                    .pipe(fs.createWriteStream(filepath))
-                    .on('error', reject)
-                    .once('close', () => resolve(filepath))
-            })
-        }
-
         const response = await recipe.save();
-        download(recipe.imageUrl, './images/' + response._id + '_img' + '.jpg');
         return res.json(response);
     } catch (err) {
         console.log(err);
